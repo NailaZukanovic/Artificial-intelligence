@@ -105,15 +105,14 @@ def TestCall(request):
 
             root = Node(None, Model.game.lastMove) 
 
-            match Model.game.TipIgre:
-                case 'laki':
-                    levels =  3
-                case 'srednji':
-                    levels = 5
-                case 'teski':
-                    level = 5 
-                case _:        
-                    levels = 3
+            if Model.game.TipIgre == 'laki':
+               levels =  3
+            elif Model.game.TipIgre == 'srednji':
+               levels = 5
+            elif Model.game.TipIgre == 'teski':
+               level = 5 
+            else:        
+               levels = 3
 
             TreeCreate(levels,root,lst)
 
