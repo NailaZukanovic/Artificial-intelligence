@@ -11,8 +11,6 @@ class GameState():
         self.scoreX=0
         self.scoreY=0
         self.gameEnd=False
-        self.numberX = 0
-        self.numberY = 0
 
 class Game():
     def __init__(self):
@@ -40,23 +38,11 @@ class Game():
                         while(temp+dir in GetSquare(temp) and board[temp+dir] == player):
                             temp += dir
                             found += 1
-                            if(found == 3):
-                                if(player == 'X'):
-                                    state.numberX += 10
-                                else:
-                                    state.numberY += 10
-                            if(found == 4):
-                                if(player == 'X'):
-                                    state.numberX += 20
-                                else:
-                                    state.numberY += 20
                             if (found == 4 and temp+dir in GetSquare(temp) and board[temp+dir] == other):
                                 if (player=='X'):   
                                     state.scoreX += 1
-                                    state.numberX += 80
                                 else:
                                     state.scoreY += 1
-                                    state.numberY += 80
         state.gameEnd = False if 0 in board else True
         return state
 
@@ -105,14 +91,12 @@ def TestCall(request):
 
             root = Node(None, Model.game.lastMove) 
 
-            if Model.game.TipIgre == 'laki':
-               levels =  3
-            elif Model.game.TipIgre == 'srednji':
-               levels = 5
-            elif Model.game.TipIgre == 'teski':
-               level = 5 
-            else:        
-               levels = 3
+            levels = 3
+
+            if  Model.game.TipIgre =='srednji':
+                    levels = 5
+            elif  Model.game.TipIgre =='teski':
+                    level = 5       
 
             TreeCreate(levels,root,lst)
 
