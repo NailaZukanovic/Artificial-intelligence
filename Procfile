@@ -1,1 +1,1 @@
-web: gunicorn aksldmlkas.wsgi
+web: gunicorn Project.wsgi
