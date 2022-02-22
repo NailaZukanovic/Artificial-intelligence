@@ -5,15 +5,17 @@ from django.db import models
 import math
 from random import shuffle
 import secrets
-
+ 
 class GameState():
     def __init__(self):
         self.scoreX=0
         self.scoreY=0
+        self.pozicije=[]
         self.gameEnd=False
-
+ 
 class Game():
     def __init__(self):
+        self.fields = []
         for num in range(self.width*self.width):
             self.fields.append(0)
         self.TipIgre = 'laki'
@@ -34,18 +36,22 @@ class Game():
                 if (board[index] == other):
                     for dir in [1, self.width+1, self.width, self.width-1]:
                         found = 0
+                        nasao=[]
                         temp = index
                         while(temp+dir in GetSquare(temp) and board[temp+dir] == player):
                             temp += dir
                             found += 1
+                            nasao.append(temp)
                             if (found == 4 and temp+dir in GetSquare(temp) and board[temp+dir] == other):
+                                for pos in nasao:
+                                    state.pozicije.append(pos)
                                 if (player=='X'):   
                                     state.scoreX += 1
                                 else:
                                     state.scoreY += 1
         state.gameEnd = False if 0 in board else True
         return state
-
+ 
 class Node():
     def __init__(self, p, nm):
         self.nodeMove = nm
@@ -53,12 +59,14 @@ class Node():
         self.parent=None
         self.score=None
         self.children=[]
-
+ 
 def Ai(request):
+    del Model.game
+    Model.game = Game()
     Model.game.TipIgre = request.GET.get('param')
     Model.game.inProgress = True
     return HttpResponse('OK')
-
+ 
 def TestCall(request):
     if (not Model.game.inProgress):
         state = Model.game.VictoryCheck()
@@ -78,40 +86,42 @@ def TestCall(request):
                 char = 'O'
             Model.game.turn = not Model.game.turn
             Model.game.fields[polje] = char
-
+ 
             state = Model.game.VictoryCheck()
             if (state.gameEnd):
                 Model.game.inProgress = False
                 return HttpResponse(Model.game.fields)
             if (Model.game.TipIgre == 'igraci'):
-                return HttpResponse(Model.game.fields)
+                polja = Model.game.fields[:]
+                polja.append(state.pozicije)
+                return HttpResponse(polja)
             Model.game.inProgress = False
-
+ 
             lst=[]
-
+ 
             root = Node(None, Model.game.lastMove) 
-
+ 
             levels = 3
-
+ 
             if  Model.game.TipIgre =='srednji':
                     levels = 5
             elif  Model.game.TipIgre =='teski':
                     level = 5       
-
+ 
             TreeCreate(levels,root,lst)
-
+ 
             mm = MinMax()
             bestScore = mm.MinMaxAB(root, True)
-
+ 
             filter(lambda n: len(n.children) == 0, lst)
             print("Number of leafs: " + str(len(lst)))
-
+ 
             if (len(root.children) == 1):
                 bestNode = root.children[0]
             else:
                 bestNode = next(filter(lambda n: n.score == bestScore, root.children))
-            
-            
+ 
+ 
             if (Model.game.turn):
                 char = 'X'
             else: 
@@ -123,18 +133,18 @@ def TestCall(request):
             for chld in root.children:
                 print(chld.score)
             print("selecting: " + str(bestNode.score))
-
+ 
             del root
             del lst
-
+ 
             Model.game.inProgress = True
-        
-
+ 
+ 
             state = Model.game.VictoryCheck()
             if (state.gameEnd):
                 Model.game.inProgress = False
                 return HttpResponse(Model.game.fields)
-        
+ 
             print("X: " + str(state.scoreX))
             print("Y: " + str(state.scoreY))
         else:
@@ -158,22 +168,22 @@ def TestCall(request):
             TreeCreate(levels,root,lst)
             mm = MinMax()
             bestScore = mm.MinMaxAB(root, True)
-
+ 
             filter(lambda n: len(n.children) == 0, lst)
             print("Number of leafs: " + str(len(lst)))
-
+ 
             if (len(root.children) == 1):
                 bestNode = root.children[0]
             else:
                 bestNode = next(filter(lambda n: n.score == bestScore, root.children))
             Model.game.fields[bestNode.nodeMove] = char
             Model.game.lastMove = bestNode.nodeMove
-            
+ 
             print("Possible moves:")
             for chld in root.children:
                 print(chld.score)
             print("selecting: " + str(bestNode.score))
-
+ 
             del root
             del lst
             state = Model.game.VictoryCheck()
@@ -182,8 +192,11 @@ def TestCall(request):
             else:
                 Model.game.inProgress = True
             Model.game.turn = not Model.game.turn
-    return HttpResponse(Model.game.fields)
-
+    state = Model.game.VictoryCheck()
+    polja = Model.game.fields[:]
+    polja.append(state.pozicije)
+    return HttpResponse(polja)
+ 
 class MinMax():
     def __init__(self):
         self.alfa = float('-inf')
@@ -207,8 +220,8 @@ class MinMax():
                     break 
                 self.beta = min(self.beta, node.score)
             return node.score
-
-
+ 
+ 
 def CalcScore(node):
     board = Model.game.fields[:]
     currentNode = node
@@ -218,7 +231,7 @@ def CalcScore(node):
     else: 
         char = 'O'
         op = 'X'
-
+ 
     while(currentNode.depth > 0):
         board[currentNode.nodeMove] = char if currentNode.depth%2==0 else op
         currentNode = currentNode.parent
@@ -234,7 +247,7 @@ def CalcScore(node):
     if (char == 'O'):
         return -score
     return score
-
+ 
 def TreeCreate(depth, pNode, allNodes): 
     pozicije = list(ListaPozicija(pNode.nodeMove))
     parent = pNode
@@ -251,8 +264,8 @@ def TreeCreate(depth, pNode, allNodes):
         if (n.depth < depth):
             TreeCreate(depth, n, allNodes)
     shuffle(pNode.children)
-
-
+ 
+ 
 def ListaPozicija(move):
     if ('X' not in Model.game.fields):
         return range(len(Model.game.fields))
@@ -263,8 +276,8 @@ def ListaPozicija(move):
         return filter(lambda n: Model.game.fields[n] == 0, range(len(Model.game.fields)))
     else:
         return filter(lambda n: Model.game.fields[n] == 0, sq)
-
-
+ 
+ 
 def ProveraPozicije(polje):
     if ('X' not in Model.game.fields):
         return True 
@@ -274,7 +287,7 @@ def ProveraPozicije(polje):
     if (polje in sq or len(list(filter(lambda n: Model.game.fields[n] == 0, sq)))==0):
         return True
     return False
-
+ 
 def GetSquare(polje):
     square = []
     top = polje//Model.game.width == 0
@@ -298,18 +311,18 @@ def GetSquare(polje):
     if (not bottom):
         square.append(polje+Model.game.width)
     return square
-
-
-
+ 
+ 
+ 
 class Model(models.Model):
     app_label = "Test"
     game = Game()
-
+ 
 class HtmlView(CreateView):
     model = Model
     fields = []
     template_name = "index.html"
-
+ 
 def Scores(request):
     board = Model.game.fields[:]
     state = Model.game.VictoryCheck(board)
