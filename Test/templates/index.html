@@ -14,11 +14,11 @@ body , html{
 		margin : 0 0;
 		padding: 0  0;
 }
-
+ 
 body {
     background-color:#F0D2B4;
 }
-
+ 
 input[type="radio"] {
   /* Add if not using autoprefixer */
   -webkit-appearance: none;
@@ -28,7 +28,7 @@ input[type="radio"] {
   background-color: var(--form-background);
   /* Not removed via appearance */
   margin: 0;
-
+ 
   font: inherit;
   color: currentColor;
   width: 1.15em;
@@ -36,11 +36,11 @@ input[type="radio"] {
   border: 0.15em solid currentColor;
   border-radius: 50%;
   transform: translateY(-0.075em);
-
+ 
   display: inline-grid;
   place-content: center;
 }
-
+ 
 input[type="radio"]::before {
   content: "";
   width: 0.65em;
@@ -52,41 +52,41 @@ input[type="radio"]::before {
   /* Windows High Contrast Mode */
   background-color: CanvasText;
 }
-
+ 
 input[type="radio"]:checked::before {
   transform: scale(1);
 }
-
+ 
 input[type="radio"]:focus {
   outline: max(2px, 0.15em) solid black;
   outline-offset: max(2px, 0.15em);
 }
-
+ 
 .square{
 	float: left;
 	width: 80px;
 	height: 80px;
     position: relative;
 }
-
+ 
 .white_square{
 	background-color:#F0D2B4;
 }
-
+ 
 .black_square{
 	background-color :#BA7A3A;
 }
-
+ 
 .clear_float{
 	clear: both;
 }
-
+ 
 .chessboard {
     background-color:#F0D2B4;
     display: flex;
     align-items:center
 }
-
+ 
 .table{
 	position: relative;
 	width: 800px;
@@ -120,7 +120,7 @@ input[type="radio"]:focus {
   -o-transition: 5s ease-in-out;
   transition: 5s ease-in-out;
 }
-
+ 
 .checker{
 	top:10px;
 	left:10px;
@@ -131,17 +131,19 @@ input[type="radio"]:focus {
 	cursor: pointer;
     display:block;
     position: relative;
-
+ 
 }
-
+.green_bck{
+   opacity: 0.5;
+}
 .white_checker{
 	background: white;
 }
-
+ 
 .black_checker{
 	background: #00001F;
 }
-
+ 
 .black_background{
 	position: fixed;
 	width: 100%;
@@ -151,7 +153,7 @@ input[type="radio"]:focus {
 	z-index:  7;
 	display: none;
 }
-
+ 
 /* CSS */
 #button, #pot {
   background-color: #BA7A3A;;
@@ -173,28 +175,28 @@ input[type="radio"]:focus {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
-
+ 
 #button:hover, #pot {
   box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
   transform: translateY(-2px);
 }
-
+ 
 @media (min-width: 768px) {
   #button, #pot {
     padding: 10px 30px;
   }
 }
-
+ 
 *{
     font-family:Palatino Linotype;
 }
-
+ 
 .podaci {
     font-size: 1.5em;
     text-align: center;
     color: palevioletred;
 }
-
+ 
 .sidebar {
     margin-left:4em;
 }
@@ -202,8 +204,8 @@ input[type="radio"]:focus {
     padding: 4em;
     background: papayawhip;
 }
-
-
+ 
+ 
     </style>
     {% endblock stylesheet %}
 </head>
@@ -213,7 +215,7 @@ input[type="radio"]:focus {
     <div class="chessboard">
         <p id="paragraf" style=" writing-mode: vertical-rl;
         text-orientation: mixed; letter-spacing:74px; margin-top: 180px; ">0123456789</p>
-
+ 
         <div id="zaNaslov">
             <h1 style="text-align:center; color:#BA7A3A;">Freedom!</h1>
         <div class="table" id="table">
@@ -229,7 +231,7 @@ input[type="radio"]:focus {
             <div class="square black_square " onclick="dajVrednost(this)" id="9"></div>
             <div class="clear_float"> </div> 
             <div class="square black_square " onclick="dajVrednost(this)" id="10"></div><div class="square white_square " onclick="dajVrednost(this)" id="11"></div><div class="square black_square " onclick="dajVrednost(this)" id="12"></div><div class="square white_square " onclick="dajVrednost(this)" id="13"></div><div class="square black_square " onclick="dajVrednost(this)" id="14"></div><div class="square white_square " onclick="dajVrednost(this)" id="15"></div><div class="square black_square " onclick="dajVrednost(this)" id="16"></div><div class="square white_square " onclick="dajVrednost(this)" id="17"></div><div class="square black_square " onclick="dajVrednost(this)" id="18"></div><div class="square white_square " onclick="dajVrednost(this)" id="19"></div><div class="square white_square " onclick="dajVrednost(this)" id="20"></div><div class="square black_square " onclick="dajVrednost(this)" id="21"></div><div class="square white_square " onclick="dajVrednost(this)" id="22"></div><div class="square black_square " onclick="dajVrednost(this)" id="23"></div><div class="square white_square " onclick="dajVrednost(this)" id="24"></div><div class="square black_square " onclick="dajVrednost(this)" id="25"></div><div class="square white_square " onclick="dajVrednost(this)" id="26"></div><div class="square black_square " onclick="dajVrednost(this)" id="27"></div><div class="square white_square " onclick="dajVrednost(this)" id="28"></div><div class="square black_square " onclick="dajVrednost(this)" id="29"></div><div class="square black_square " onclick="dajVrednost(this)" id="30"></div><div class="square white_square " onclick="dajVrednost(this)" id="31"></div><div class="square black_square " onclick="dajVrednost(this)" id="32"></div><div class="square white_square " onclick="dajVrednost(this)" id="33"></div><div class="square black_square " onclick="dajVrednost(this)" id="34"></div><div class="square white_square " onclick="dajVrednost(this)" id="35"></div><div class="square black_square " onclick="dajVrednost(this)" id="36"></div><div class="square white_square " onclick="dajVrednost(this)" id="37"></div><div class="square black_square " onclick="dajVrednost(this)" id="38"></div><div class="square white_square " onclick="dajVrednost(this)" id="39"></div><div class="square white_square " onclick="dajVrednost(this)" id="40"></div><div class="square black_square " onclick="dajVrednost(this)" id="41"></div><div class="square white_square " onclick="dajVrednost(this)" id="42"></div><div class="square black_square " onclick="dajVrednost(this)" id="43"></div><div class="square white_square " onclick="dajVrednost(this)" id="44"></div><div class="square black_square " onclick="dajVrednost(this)" id="45"></div><div class="square white_square " onclick="dajVrednost(this)" id="46"></div><div class="square black_square " onclick="dajVrednost(this)" id="47"></div><div class="square white_square " onclick="dajVrednost(this)" id="48"></div><div class="square black_square " onclick="dajVrednost(this)" id="49"></div><div class="square black_square " onclick="dajVrednost(this)" id="50"></div><div class="square white_square " onclick="dajVrednost(this)" id="51"></div><div class="square black_square " onclick="dajVrednost(this)" id="52"></div><div class="square white_square " onclick="dajVrednost(this)" id="53"></div><div class="square black_square " onclick="dajVrednost(this)" id="54"></div><div class="square white_square " onclick="dajVrednost(this)" id="55"></div><div class="square black_square " onclick="dajVrednost(this)" id="56"></div><div class="square white_square " onclick="dajVrednost(this)" id="57"></div><div class="square black_square " onclick="dajVrednost(this)" id="58"></div><div class="square white_square " onclick="dajVrednost(this)" id="59"></div><div class="square white_square " onclick="dajVrednost(this)" id="60"></div><div class="square black_square " onclick="dajVrednost(this)" id="61"></div><div class="square white_square " onclick="dajVrednost(this)" id="62"></div><div class="square black_square " onclick="dajVrednost(this)" id="63"></div><div class="square white_square " onclick="dajVrednost(this)" id="64"></div><div class="square black_square " onclick="dajVrednost(this)" id="65"></div><div class="square white_square " onclick="dajVrednost(this)" id="66"></div><div class="square black_square " onclick="dajVrednost(this)" id="67"></div><div class="square white_square " onclick="dajVrednost(this)" id="68"></div><div class="square black_square " onclick="dajVrednost(this)" id="69"></div><div class="square black_square " onclick="dajVrednost(this)" id="70"></div><div class="square white_square " onclick="dajVrednost(this)" id="71"></div><div class="square black_square " onclick="dajVrednost(this)" id="72"></div><div class="square white_square " onclick="dajVrednost(this)" id="73"></div><div class="square black_square " onclick="dajVrednost(this)" id="74"></div><div class="square white_square " onclick="dajVrednost(this)" id="75"></div><div class="square black_square " onclick="dajVrednost(this)" id="76"></div><div class="square white_square " onclick="dajVrednost(this)" id="77"></div><div class="square black_square " onclick="dajVrednost(this)" id="78"></div><div class="square white_square " onclick="dajVrednost(this)" id="79"></div><div class="square white_square " onclick="dajVrednost(this)" id="80"></div><div class="square black_square " onclick="dajVrednost(this)" id="81"></div><div class="square white_square " onclick="dajVrednost(this)" id="82"></div><div class="square black_square " onclick="dajVrednost(this)" id="83"></div><div class="square white_square " onclick="dajVrednost(this)" id="84"></div><div class="square black_square " onclick="dajVrednost(this)" id="85"></div><div class="square white_square " onclick="dajVrednost(this)" id="86"></div><div class="square black_square " onclick="dajVrednost(this)" id="87"></div><div class="square white_square " onclick="dajVrednost(this)" id="88"></div><div class="square black_square " onclick="dajVrednost(this)" id="89"></div>
-            
+ 
             <div class="clear_float"> </div> 
             <div class="square black_square " onclick="dajVrednost(this)" id="90"></div>
             <div class="square white_square " onclick="dajVrednost(this)" id="91"></div>
@@ -245,42 +247,42 @@ input[type="radio"]:focus {
             <p id="paragraf" style="letter-spacing:54px; margin-left: 30px; ">ABCDEFGHIJKL</p>
         </div>
     </div>
-
+ 
     <div class="sidebar">
         <button id="button">Nova igra</button>
-
+ 
         <h1>Molimo vas da odaberete</h1>
-
-
+ 
+ 
         <input type="radio" id="igraci" name="igraj" value="igraci">
         <label for="igraci">Igrac protiv igraca</label>
-
-
-
-
+ 
+ 
+ 
+ 
         <br>  
-
+ 
         <br>
         <h1>Igrac protiv kompjutera</h1>
   <input type="radio" id="laki" name="igraj" value="laki">
   <label for="laki">Laki</label>
-  
+ 
   <br>
-
+ 
   <input type="radio" id="srednji" name="igraj" value="srednji">
   <label for="srednji">Srednji</label>
-  
+ 
   <br>
-
+ 
   <input type="radio" id="teski" name="igraj" value="teski">
   <label for="teski">Teski</label>
-  
+ 
         <br>
-
+ 
         <br>
-
+ 
         <h1>Kompjuter protiv kompjutera</h1>
-
+ 
         <input type="radio" id="kompjuteri" name="igraj" value="kompjuter">
         <label for="kompjuteri">Komp vs komp</label>
         <br>
@@ -292,9 +294,9 @@ input[type="radio"]:focus {
         <section class="zaPodatke">
             <h1 class="podaci" id="podaci">Pocnite!</h1>
         </section>
-
+ 
         <h1 style="text-align:center">Skor</h1>
-
+ 
         <span style="float:left; color:palevioletred">Beli igrac</span>
         <span style="float:right; color:palevioletred">Crni igrac</span>
 <br>
@@ -302,16 +304,16 @@ input[type="radio"]:focus {
         <span style="float:right" id="crniSkor"><h1>0</h1></span>
     </div>
 </div>
-
+ 
         {% endblock content %}
     </main>
     {% block javascript %}
     <script src='https://code.jquery.com/jquery-3.1.0.min.js'>
     </script>
     <script type="text/javascript">
-
+ 
         let btn = document.getElementById('button');
-
+ 
         btn.addEventListener('click', () => {
             let igraj = document.getElementsByName('igraj');
             igraj.forEach((igra) => {
@@ -326,6 +328,9 @@ input[type="radio"]:focus {
                         url: "/igra/",
                         data: {param: vrednost}
                     }).then((response) => {
+                        for (let i = 0; i < 100; i++) {
+                            document.getElementById(i).innerHTML=""
+                        }
                         console.log(response);                        
                     });
                 }
@@ -345,7 +350,7 @@ input[type="radio"]:focus {
                             if (document.getElementById(index).children.length == 0)
                             {    document.getElementById(index).appendChild(element);
                             }
-                            
+ 
                         }
                         else if(value == 'O')
                         {   
@@ -356,9 +361,9 @@ input[type="radio"]:focus {
                             }
                         }
                     });
-                
+ 
             });
-
+ 
             $.ajax({
                 type: 'GET',
                 url: "/scores/"
@@ -367,22 +372,24 @@ input[type="radio"]:focus {
                 document.getElementById('beliSkor').innerHTML = response.split(' ')[0];
                 document.getElementById('crniSkor').innerHTML = response.split(' ')[1];
             });
-
+ 
         });
-
-
-        
+ 
+ 
+ 
         function dajVrednost(e)
         {
             let id = e.getAttribute('id');
-
+ 
             console.log(id);
             $.ajax({
                 type: 'GET',
                 url: "/tstPoziv/",
                 data: {param: parseInt(e.getAttribute('id'))},
             }).then((response) => {
-                    Array.from(response).forEach(function callback(value, index) {
+                    spl = response.split('[');
+                    console.log(response)
+                    Array.from(spl[0]).forEach(function callback(value, index) {
                         if(value == 'X')
                         {    
                             element = document.createElement('div');
@@ -391,7 +398,7 @@ input[type="radio"]:focus {
                             {   document.getElementById(index).appendChild(element);
                                 document.getElementById('podaci').textContent = 'beli igrac je odigrao potez ' + index;
                             }
-                            
+ 
                         }
                         else if(value == 'O')
                         {   
@@ -401,12 +408,20 @@ input[type="radio"]:focus {
                             {   document.getElementById(index).appendChild(element);
                                 document.getElementById('podaci').textContent = 'crni igrac je odigrao potez ' + index;
                             }
-                            
+ 
                         }
                     });
-                
+                    skor = spl[1].slice(0, spl[1].length-1).split(', ')
+ 
+                    skor.forEach(function callback(value, index) {
+                        if (value)
+                        {
+                            document.getElementById(value).classList.add("green_bck")
+                        }
+                    });
+ 
             });
-
+ 
             $.ajax({
                 type: 'GET',
                 url: "/scores/"
@@ -415,9 +430,9 @@ input[type="radio"]:focus {
                 document.getElementById('beliSkor').innerHTML = response.split(' ')[0];
                 document.getElementById('crniSkor').innerHTML = response.split(' ')[1];
             });
-
+ 
         }
-
+ 
     </script>
     {% endblock javascript %}
 </body>
